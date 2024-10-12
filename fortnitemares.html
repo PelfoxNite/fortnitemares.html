@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bannière personnalisée</title>
+    <style>
+        @font-face {
+            font-family: 'Burbank Big Condensed Black';
+            src: url('file:///C:/Users/Utilisateur/Desktop/PelfoxNite/fortnitemarespdp/BurbankBigCondensed-Black.otf') format('opentype');
+        }
+
+        body {
+            background: linear-gradient(to bottom, #8A2BE2, #4B0082); /* Fond violet/bleu */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .banner-preview {
+            width: 600px;
+            height: 200px;
+            background-image: url('https://pbs.twimg.com/media/GZsh04uXcAUboUW?format=jpg&name=large'); /* Image fictive */
+            background-size: cover;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .banner-text {
+            font-family: 'Burbank Big Condensed Black', sans-serif; /* Appliquer la police */
+            font-size: 5rem; /* Texte beaucoup plus gros */
+            color: #00BFFF; /* Couleur du texte */
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombre pour le texte */
+            position: absolute; /* Positionner le texte sur l'image */
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1.5rem;
+            width: 80%;
+            border: 2px solid #00BFFF;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #FFD700; /* Jaune style Fortnite */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #FFC107; /* Couleur plus foncée au survol */
+        }
+    </style>
+</head>
+<body>
+    <h1>Crée ta bannière personnalisée pour FortniteMares 2024 !</h1>
+    <div class="banner-preview" id="bannerPreview">
+        <div class="banner-text" id="bannerText">Texte de la bannière</div>
+    </div>
+    <div class="controls">
+        <input type="text" id="textInput" maxlength="10" placeholder="Ajoutez votre texte (max 10 caractères)">
+        <button id="downloadBtn">Télécharger</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        const textInput = document.getElementById('textInput');
+        const bannerText = document.getElementById('bannerText');
+
+        // Mettre à jour le texte de la bannière en fonction de la saisie de l'utilisateur
+        textInput.addEventListener('input', () => {
+            bannerText.textContent = textInput.value || 'Texte de la bannière';
+        });
+
+        // Fonction pour télécharger la bannière
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            html2canvas(document.querySelector("#bannerPreview")).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'bannière_fortnitemares.png';
+                link.href = canvas.toDataURL('image/png');
+                document.body.appendChild(link); // Ajouter le lien au document
+                link.click();
+                document.body.removeChild(link); // Supprimer le lien après le clic
+            }).catch((err) => {
+                console.error("Erreur lors de la génération de l'image :", err);
+            });
+        });
+    </script>
+</body>
+</html>
